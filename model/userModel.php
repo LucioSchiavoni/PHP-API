@@ -47,13 +47,13 @@ class userModel{
 //UPDATE
     public function updateUsers($id,$name,$email,$pwd){
 
-        $validate = $this->existUser($email);
-            $res= ['error', 'El usuario no existe'];
-            if(count($validate)>0){
+        // $validate = $this->existUser($id);
+        //     $res= ['error', 'El usuario no existe'];
+            // if(count($validate)>0){
                     $sql = "UPDATE users SET name='$name', email='$email', pwd='$pwd' WHERE id='$id'";
                     mysqli_query($this->conn,$sql);
                     $res = ['succes', 'Usuario actualizado'];
-        }
+        // }
         return $res;
     }
     
