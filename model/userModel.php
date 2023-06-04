@@ -1,5 +1,9 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Allow: *");
 
+header("content-type: application/json; charset=utf-8");
 class userModel{
     public $conn;
     public function __construct(){
@@ -10,34 +14,34 @@ class userModel{
 //GET *
     public function getUsers($id=null){
     $where = ($id == null) ? "" : " WHERE id='$id' ";
-    $users = [];
-    $sql= "SELECT * FROM users ".$where;
+    $usuarios = [];
+    $sql= "SELECT * FROM usuarios ".$where;
     $res = mysqli_query($this->conn, $sql);
     while($row = mysqli_fetch_assoc($res)){
-        array_push($users,$row);
+        array_push($usuarios,$row);
     }
-    return $users;
+    return $usuarios;
 }
 
 //GET ID
     public function getUsersById($id){
     
-    $sql= "SELECT FROM users WHERE id='$id' ";
+    $sql= "SELECT FROM usuarios WHERE id='$id' ";
     $res = mysqli_query($this->conn, $sql);
     return $res;
 
-    return $users;
+    return $usuarios;
 }
 
 //POST
-    public function saveUsers($name,$email,$pwd){
+    public function saveUsers($ci,$nombre,$apellido,$fnac,$email,$clave,$sexo){
 
         $validate = $this->existUser($email);
         if(count($validate) > 0 ){
           $res = ["Error", "Este usuario ya existe"];
 
         }else{
-            $sql="INSERT INTO users(name,email,pwd) VALUES('$name','$email','$pwd')";
+            $sql="INSERT INTO usuarios(ci,nombre,apellido,fnac, email, clave,sexo) VALUES('$ci','$nombre','$apellido','$fnac', '$email','$clave','$sexo')";
             mysqli_query($this->conn,$sql);
             $res =['succes', 'Usuario guardado'];
         }
@@ -50,7 +54,7 @@ class userModel{
         // $validate = $this->existUser($id);
         //     $res= ['error', 'El usuario no existe'];
             // if(count($validate)>0){
-                    $sql = "UPDATE users SET name='$name', email='$email', pwd='$pwd' WHERE id='$id'";
+                    $sql = "UPDATE usuarios SET name='$name', email='$email', pwd='$pwd' WHERE id='$id'";
                     mysqli_query($this->conn,$sql);
                     $res = ['succes', 'Usuario actualizado'];
         // }
@@ -64,7 +68,7 @@ class userModel{
 
         if(count($validate) > 0){
 
-            $sql="DELETE FROM users WHERE id='$id' ";
+            $sql="DELETE FROM usuarios WHERE id='$id' ";
             mysqli_query($this->conn,$sql);
             $res = ["succes", "Usuario eliminado"];   
         }
@@ -76,7 +80,7 @@ class userModel{
     public function existUser($email){
 
         $users=[];
-        $sql = "SELECT * FROM users WHERE email='$email' ";
+        $sql = "SELECT * FROM usuarios WHERE email='$email' ";
         $res = mysqli_query($this->conn,$sql);
 
         while($row = mysqli_fetch_assoc($res)){
