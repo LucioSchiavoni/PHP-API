@@ -4,6 +4,9 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Allow: *");
 
 header("content-type: application/json; charset=utf-8");
+
+
+
 class userModel{
     public $conn;
     public function __construct(){
@@ -49,15 +52,13 @@ class userModel{
 }
 
 //UPDATE
-    public function updateUsers($id,$name,$email,$pwd){
+    public function updateUsers($id,$ci,$nombre,$apellido,$fnac,$email,$clave,$sexo){
 
-        // $validate = $this->existUser($id);
-        //     $res= ['error', 'El usuario no existe'];
-            // if(count($validate)>0){
-                    $sql = "UPDATE usuarios SET name='$name', email='$email', pwd='$pwd' WHERE id='$id'";
+       
+                    $sql = "UPDATE usuarios SET ci='$ci',nombre='$nombre', apellido='$apellido', fnac='$fnac', email='$email', clave='$clave', sexo='$sexo' WHERE id='$id'";
                     mysqli_query($this->conn,$sql);
                     $res = ['succes', 'Usuario actualizado'];
-        // }
+    
         return $res;
     }
     

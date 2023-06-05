@@ -1,6 +1,6 @@
 
 <!--URL PARA EL POST-->
-<!--http://localhost/api-auth/controllers/userController.php-->
+<!--http://localhost/php-api/controllers/userController.php?formatoPost-->
 
 <!DOCTYPE html>
 <html lang="en">
